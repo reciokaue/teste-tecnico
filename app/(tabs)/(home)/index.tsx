@@ -6,7 +6,7 @@ import { FlatList, Text, View } from 'react-native';
 
 export default function MaleScreen() {
   const { data: result } = useQuery({
-    queryKey: ['user-forms'],
+    queryKey: ['products'],
     queryFn: () => getProducts({ 
       category: 'mens-shirts',
      }),

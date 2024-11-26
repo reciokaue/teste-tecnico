@@ -8,7 +8,7 @@ import Octicons from '@expo/vector-icons/Octicons';
 export default function TabLayout() {
   return (
     <Tabs
-      initialRouteName='home'
+    initialRouteName='(home)'
       screenOptions={{
         headerShown: false,
         tabBarItemStyle: {
@@ -30,7 +30,7 @@ export default function TabLayout() {
         },
       }}>
       <Tabs.Screen
-        name="home"
+        name="(home)"
         options={{
           title: 'Início',
           tabBarIcon: ({ color }) => <Entypo name="home" size={24} color={color} />,
