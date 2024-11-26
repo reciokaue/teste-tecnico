@@ -14,6 +14,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        border: '#BDBDBD',
         primary: {
           0: 'rgb(var(--color-primary-0)/<alpha-value>)',
           50: 'rgb(var(--color-primary-50)/<alpha-value>)',
@@ -170,13 +171,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: undefined,
-        body: undefined,
-        mono: undefined,
-        roboto: ['Roboto', 'sans-serif'],
-      },
-      fontWeight: {
-        extrablack: '950',
+        heading: ['Inter', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        mono: ['Inter', 'sans-serif'],
+        roboto: ['Inter', 'sans-serif'],
       },
       fontSize: {
         '2xs': '10px',
