@@ -42,9 +42,9 @@ export default function Layout() {
         color: "#000"
       },
       tabBarIndicatorStyle: {
-        height: 4.5
+        height: 4.5,
+        backgroundColor: '#2567E8'
       }
-      
     }}>
       <MaterialTopTabs.Screen  name='index' options={{
         title: 'Produtos Masculinos'
