@@ -1,12 +1,13 @@
 import * as SplashScreen from 'expo-splash-screen';
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import "../global.css";
 
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -27,10 +28,10 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" translucent backgroundColor='#fff'/>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="product-details" />
       </Stack>
     </GluestackUIProvider>
   );
