@@ -37,8 +37,7 @@ export default function Layout() {
       tabBarLabelStyle: {
         fontSize: 12,
         lineHeight: 16,
-        fontWeight: 'semibold',
-        fontFamily: 'Inter',
+        fontFamily: 'Inter_600SemiBold',
         color: "#000"
       },
       tabBarIndicatorStyle: {
