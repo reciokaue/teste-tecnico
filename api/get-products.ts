@@ -1,7 +1,7 @@
 import { api } from "./axios";
 
 interface GetProductsData {
-  category:  'mens-shirts' | 'mens-shoes' | 'mens-watches'
+  category: string
   page?: number
   pageSize?: number
 }
@@ -17,7 +17,7 @@ export interface Product {
   images: string[]
 }
 
-interface ResponseData {
+export interface GetProductsResponseData {
   total: number
   skip: number
   limit: number
@@ -38,5 +38,5 @@ export async function getProducts({
     }
   })
 
-  return result.data as ResponseData
+  return result.data as GetProductsResponseData
 }

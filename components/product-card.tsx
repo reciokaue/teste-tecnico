@@ -14,15 +14,15 @@ export function ProductCard({
   const { title, description, thumbnail, discountPercentage, price } = product
 
   return (
-    <Card variant="outline" className="rounded-2xl p-0 w-full">
+    <Card variant="outline" className="rounded-2xl p-0 w-full overflow-hidden">
        <Image
           source={{uri: thumbnail}}
           style={{height: 167.5, width: '100%'}} 
           resizeMode="contain"
         />
        <View className="border-t border-border p-2 space-y-2">
-        <Heading size="sm">{title.slice(0, 15) + '...'}</Heading>
-        <Text size="2xs">{description.slice(0, 100) + '...'}</Text>
+        <Heading size="sm" numberOfLines={1} className="text-nowrap">{title}</Heading>
+        <Text size="2xs" numberOfLines={5}>{description}</Text>
         
         <View className="flex-row items-end mt-4">
           <Heading size="sm">
