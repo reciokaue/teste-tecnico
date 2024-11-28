@@ -44,7 +44,7 @@ export default function RootLayout() {
         <StatusBar style="auto" translucent backgroundColor='#fff'/>
         <Stack initialRouteName="(tabs)">
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="product-details" />
+          <Stack.Screen name="product/[productId]" options={{headerTitle: '', headerShadowVisible: false }} />
         </Stack>
       </QueryClientProvider>
     </GluestackUIProvider>

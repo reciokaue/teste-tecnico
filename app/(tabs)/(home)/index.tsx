@@ -49,14 +49,14 @@ export default function MaleScreen() {
           justifyContent: 'space-between',
         }}
         contentContainerStyle={{
-          paddingHorizontal: 20,
-          paddingVertical: 20
+          paddingHorizontal: 15,
+          paddingVertical: 30
         }}
         renderItem={({item: product}) => 
           <Link
             className='py-0 h-fit -mt-4'
-            href={'/product-details'} key={product.id}
-            style={{width: '48%'}}
+            href={`/product/${product.id}`} key={product.id}
+            style={{width: '47%'}}
           >
             <ProductCard product={product}/>
           </Link>

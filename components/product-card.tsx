@@ -22,7 +22,7 @@ export function ProductCard({
         />
        <View className="border-t border-border p-2 space-y-2">
         <Heading size="sm" numberOfLines={1} className="text-nowrap">{title}</Heading>
-        <Text size="2xs" numberOfLines={5}>{description}</Text>
+        <Text size="2xs" numberOfLines={4}>{description}</Text>
         
         <View className="flex-row items-end mt-4">
           <Heading size="sm">
