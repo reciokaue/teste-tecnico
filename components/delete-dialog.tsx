@@ -29,27 +29,24 @@ export function DeleteDialog({ product }: DeleteDialogProps) {
   
   const { mutateAsync: handleDelete, isPending } = useMutation({
     mutationFn: () => deleteProduct({productId: product?.id}),
-    onSuccess: () => {
+    onSuccess: async () => {
       const type = ['mens-shirts', 'mens-shoes', 'mens-watches']
       .includes(product?.category || '')? 'man-products': 'woman-products'
       
-      // queryClient.invalidateQueries({queryKey: [type]})
-
-      queryClient.setQueryData(['man-products'],
-        (oldData: GetProductsResponseData) => {
+      await queryClient.setQueryData([type],
+        ({products, ...rest}: GetProductsResponseData) => {
           return {
-            ...oldData,
-            product: oldData.products.map(pro =>
-              pro.id !== product?.id? pro: {
-                ...product,
-                isDeleted: true
-              }
+            ...rest,
+            products: products.filter(pro =>
+              pro.id !== product?.id
             )
           }
         } 
       )
+
       setIsOpen(false)
-      router.push('/(tabs)/(home)');
+      
+      router.replace(`/(tabs)/(home)${type === 'woman-products'? '/woman': ''}`);
     }
   })
   const handleClose = () => !isPending && setIsOpen(false)

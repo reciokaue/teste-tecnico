@@ -1,43 +1,13 @@
-import { getProducts, GetProductsResponseData } from '@/api/get-products';
 import { ProductCard } from '@/components/product-card';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { UseProducts } from '@/hooks/useProducts';
 import { Link } from 'expo-router';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 
-const categories = ['mens-shirts'];
-const pageSize = 2;
+const categories = ['mens-shirts', 'mens-watches', 'mens-shoes'];
 
 export default function MaleScreen() {
-  const queryClient = useQueryClient();
-
-  const { data, refetch, isFetching } = useQuery({
-    queryKey: ['man-products'],
-    queryFn: async () => {
-      const oldData: GetProductsResponseData =
-        queryClient.getQueryData(['man-products']) || ({
-          total: 0,
-          page: 0
-        } as any);
-
-      const { page, total } = oldData
-      if (page != 0 && categories.length * pageSize * page >= total)
-        return oldData;
-      
-      const results = await Promise.all(
-        categories.map((category: string) =>
-          getProducts({ category, page, pageSize })
-        )
-      );
-      const products = results
-        .flatMap((result) => result.products) 
-        .sort(() => Math.random() - 0.5); 
-
-      return {
-        products: [...(oldData.products || []), ...products].filter(product => !product.isDeleted),
-        total: results.reduce((sum, result) => sum + result.total, 0),
-        page: products.length > 0? page + 1: page
-      };
-    },
+  const { data, refetch, isFetching } = UseProducts({
+    categories, key: 'man-products'
   })
 
   return (

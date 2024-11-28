@@ -21,15 +21,16 @@ export function ProductCard({
           resizeMode="contain"
         />
        <View className="border-t border-border p-2 space-y-2">
-        <Heading size="sm" numberOfLines={1} className="text-nowrap">{title}</Heading>
+        <Heading size="sm" numberOfLines={1} className="text-nowrap">{product.id}</Heading>
         <Text size="2xs" numberOfLines={4}>{description}</Text>
         
         <View className="flex-row items-end mt-4">
           <Heading size="sm">
-            {
+            {product.isDeleted? 'SIM': 'NAO'}
+            {/* {
               (price * (100-discountPercentage)/100)
               .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
-            }
+            } */}
           </Heading>
           {discountPercentage &&
             <Text size="2xs" className="line-through ml-2">
