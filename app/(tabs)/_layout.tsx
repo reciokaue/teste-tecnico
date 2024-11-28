@@ -3,7 +3,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 import Entypo from '@expo/vector-icons/Entypo';
-import Octicons from '@expo/vector-icons/Octicons';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function TabLayout() {
   return (
@@ -40,7 +40,7 @@ export default function TabLayout() {
         name="config"
         options={{
           title: 'Configurações',
-          tabBarIcon: ({ color }) => <Octicons name="gear" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} />,
         }}
       />
     </Tabs>

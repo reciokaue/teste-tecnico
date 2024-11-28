@@ -1,9 +1,12 @@
 import { getProduct } from "@/api/get-product";
+import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
 import { Dimensions, FlatList, Image, View } from "react-native";
+import Feather from '@expo/vector-icons/Feather';
+import { DeleteDialog } from "@/components/delete-dialog";
 
 const width = Dimensions.get('window').width;
 
@@ -55,8 +58,12 @@ export default function ProductDetailsScreen() {
           </Text>
         </View>
 
-        <View>
-
+        <View className="gap-2">
+          <Button size="lg" variant="primary">
+            <ButtonText size="sm">Editar</ButtonText>
+            <Feather name="edit" size={18} color="white" />
+          </Button>
+          <DeleteDialog product={product}/>
         </View>
       </View>
      </View>

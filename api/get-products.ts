@@ -15,12 +15,14 @@ export interface Product {
   discountPercentage: number
   thumbnail: string
   images: string[]
+  isDeleted: boolean
 }
 
 export interface GetProductsResponseData {
   total: number
   skip: number
   limit: number
+  page: number
   products: Product[]
 }
 

@@ -2,23 +2,26 @@ import { getProducts, GetProductsResponseData } from '@/api/get-products';
 import { ProductCard } from '@/components/product-card';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'expo-router';
-import { useState } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 
-const categories = ['mens-shirts', 'mens-shoes', 'mens-watches'];
+const categories = ['mens-shirts'];
+const pageSize = 2;
 
 export default function MaleScreen() {
-  const [page, setPage] = useState(0)
   const queryClient = useQueryClient();
 
   const { data, refetch, isFetching } = useQuery({
     queryKey: ['man-products'],
     queryFn: async () => {
-      const pageSize = 2;
       const oldData: GetProductsResponseData =
-        queryClient.getQueryData(['man-products']) || ({} as any);
+        queryClient.getQueryData(['man-products']) || ({
+          total: 0,
+          page: 0
+        } as any);
 
-      if (categories.length * pageSize * page >= oldData?.total) return oldData;
+      const { page, total } = oldData
+      if (page != 0 && categories.length * pageSize * page >= total)
+        return oldData;
       
       const results = await Promise.all(
         categories.map((category: string) =>
@@ -29,11 +32,10 @@ export default function MaleScreen() {
         .flatMap((result) => result.products) 
         .sort(() => Math.random() - 0.5); 
 
-      if (products.length > 0) setPage(page + 1);
-
       return {
-        products: [...(oldData.products || []), ...products],
-        total: results.reduce((sum, result) => sum + result.total, 0), 
+        products: [...(oldData.products || []), ...products].filter(product => !product.isDeleted),
+        total: results.reduce((sum, result) => sum + result.total, 0),
+        page: products.length > 0? page + 1: page
       };
     },
   })
