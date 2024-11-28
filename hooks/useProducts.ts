@@ -33,7 +33,7 @@ export const UseProducts = ({categories, key, pageSize = 2}: UseProductsProps) =
         .sort(() => Math.random() - 0.5); 
 
       return {
-        products: [...(oldData.products || []), ...products].filter(product => !product.isDeleted),
+        products: [...(oldData.products || []), ...products],
         total: results.reduce((sum, result) => sum + result.total, 0),
         page: products.length > 0? page + 1: page
       };

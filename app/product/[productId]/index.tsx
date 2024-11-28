@@ -3,7 +3,7 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Dimensions, FlatList, Image, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 import { DeleteDialog } from "@/components/delete-dialog";
@@ -59,10 +59,12 @@ export default function ProductDetailsScreen() {
         </View>
 
         <View className="gap-2">
-          <Button size="lg" variant="primary">
-            <ButtonText size="sm">Editar</ButtonText>
-            <Feather name="edit" size={18} color="white" />
-          </Button>
+          <Link href={`/product/${product?.id}/edit`} asChild>
+            <Button size="lg" variant="primary">
+              <ButtonText size="sm">Editar</ButtonText>
+              <Feather name="edit" size={18} color="white" />
+            </Button>
+          </Link>
           <DeleteDialog product={product}/>
         </View>
       </View>

@@ -54,7 +54,7 @@ export default function Layout() {
         
       </MaterialTopTabs>
       <TouchableOpacity className='justify-center items-center right-3 absolute size-14 bg-blue-500 bottom-3 rounded-full'>
-        <Link href={'/add-product'} >
+        <Link href={'/product/add'} >
           <AntDesign name="plus" size={18} color="white" />
         </Link>
       </TouchableOpacity>
