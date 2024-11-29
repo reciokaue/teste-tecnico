@@ -171,6 +171,7 @@ module.exports = {
         },
       },
       fontFamily: {
+        sans: ['Inter', 'sans-serif'],
         heading: ['Inter', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
         mono: ['Inter', 'sans-serif'],

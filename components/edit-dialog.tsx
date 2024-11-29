@@ -15,20 +15,21 @@ import { Heading } from "./ui/heading";
 import { Text } from "./ui/text";
 import { GetProductsResponseData, Product } from "@/api/get-products";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProduct } from "@/api/delete-product";
+import { editProduct } from "@/api/edit-product";
 import { router } from 'expo-router';
 import { ActivityIndicator } from "react-native";
 
-interface DeleteDialogProps {
-  product?: Product
+interface EditDialogProps {
+  onPress: any
 }
 
-export function DeleteDialog({ product }: DeleteDialogProps) {
+export function EditDialog({ onPress }: EditDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [product, setProduct] = useState<Product>()
   const queryClient = useQueryClient()
   
-  const { mutateAsync: handleDelete, isPending } = useMutation({
-    mutationFn: () => deleteProduct({productId: product?.id}),
+  const { mutateAsync: handleEdit, isPending } = useMutation({
+    mutationFn: () => editProduct({ product: product || {} }),
     onSuccess: async () => {
       const type = ['mens-shirts', 'mens-shoes', 'mens-watches']
       .includes(product?.category || '')? 'man-products': 'woman-products'
@@ -37,43 +38,53 @@ export function DeleteDialog({ product }: DeleteDialogProps) {
         ({products, ...rest}: GetProductsResponseData) => {
           return {
             ...rest,
-            products: products.filter(pro =>
-              pro.id !== product?.id
+            products: products.map(pro =>
+              pro.id !== product?.id? pro: {
+                ...pro,
+                ...product,
+              }
             )
           }
         } 
       )
-
+      await queryClient.setQueryData(['product', String(product?.id)],
+        (pro: Product) => ({
+          ...pro,
+          ...product,
+        })
+      )
       setIsOpen(false)
-      
       router.replace(`/(tabs)/(home)${type === 'woman-products'? '/woman': ''}`);
-    }
+    },
   })
   const handleClose = () => !isPending && setIsOpen(false)
+
+  const handleOpen = (data: any) => {
+    setProduct(data)
+    setIsOpen(true)
+  }
 
   return (
     <>
       <Button
-        onPress={() => setIsOpen(true)}
-        disabled={!product}
+        onPress={onPress(handleOpen)}
         size="lg"
-        variant="destructive"
+        variant="primary"
       >
-        <ButtonText size="sm">Excluir</ButtonText>
-        <Feather name="trash" size={18} color="white" />
+        <ButtonText size="sm">Salvar</ButtonText>
       </Button>
       <AlertDialog isOpen={isOpen} onClose={handleClose}>
         <AlertDialogBackdrop />
         <AlertDialogContent className='gap-6'>
           <AlertDialogHeader>
-            <Heading size="md">Excluir produto</Heading>
+            <Heading size="md">Editar produto</Heading>
             <AlertDialogCloseButton >
               <Feather name="x" size={18} color="#8E8E8E" />
             </AlertDialogCloseButton>
           </AlertDialogHeader>
           <AlertDialogBody>
             <Text className="text-gray-500">
-              Você tem certeza que deseja excluir esse produto? Essa ação não poderá ser desfeita.
+            Você tem certeza que deseja editar esse produto? Essa ação não poderá ser desfeita.
             </Text>
           </AlertDialogBody>
           <AlertDialogFooter>
@@ -81,14 +92,14 @@ export function DeleteDialog({ product }: DeleteDialogProps) {
               <ButtonText>Cancelar</ButtonText>
             </Button>
             <Button
-              onPress={() => handleDelete()}
-              variant="destructive"
+              onPress={() => handleEdit()}
+              variant="primary"
               disabled={isPending}
               className="w-24"
             > 
               {isPending?
                 <ActivityIndicator color='white'/>:
-                <ButtonText>Excluir</ButtonText>
+                <ButtonText>Salvar</ButtonText>
               }
             </Button>
           </AlertDialogFooter>
