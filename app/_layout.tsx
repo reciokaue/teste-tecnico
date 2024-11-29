@@ -42,7 +42,8 @@ export default function RootLayout() {
     <GluestackUIProvider>
       <QueryClientProvider client={queryClient}>
         <StatusBar style="auto" translucent backgroundColor='#fff'/>
-        <Stack initialRouteName="(tabs)">
+        <Stack initialRouteName="index">
+          <Stack.Screen name="index" options={{ headerShown: false }}/>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="product" options={{ headerShown: false }}/>
         </Stack>

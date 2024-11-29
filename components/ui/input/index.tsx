@@ -186,7 +186,7 @@ const Input = React.forwardRef<React.ElementRef<typeof UIInput>, IInputProps>(
         {error !== '' &&
           <View className='flex-row gap-2 items-center' style={{marginTop: 6}}>
             <MaterialIcons name="error-outline" size={24} color={"#B91C1C"} />
-            <Text className="text-error-700 text-sm">{error}</Text>
+            <Text className="text-error-700 text-sm">{error === 'required'? 'Campo obrigatório': error}</Text>
           </View>
         }
       </>
