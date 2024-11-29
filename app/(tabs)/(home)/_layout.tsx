@@ -20,6 +20,15 @@ export const MaterialTopTabs = withLayoutContext<
   MaterialTopTabNavigationEventMap
 >(Navigator)
 
+export const manCategories = ['mens-shirts', 'mens-watches', 'mens-shoes']
+export const womanCategories = [
+  'womens-bags',
+  'womens-dresses',
+  'womens-jewellery',
+  'womens-shoes',
+  'womens-watches'
+];
+
 export default function Layout() {
   return (
     <>
@@ -54,7 +63,7 @@ export default function Layout() {
         
       </MaterialTopTabs>
       <TouchableOpacity className='justify-center items-center right-3 absolute size-14 bg-blue-500 bottom-3 rounded-full'>
-        <Link href={'/product/add'} >
+        <Link href={'/product/man/add'} >
           <AntDesign name="plus" size={18} color="white" />
         </Link>
       </TouchableOpacity>

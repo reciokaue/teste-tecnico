@@ -18,6 +18,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProduct } from "@/api/delete-product";
 import { router } from 'expo-router';
 import { ActivityIndicator } from "react-native";
+import { manCategories } from "@/app/(tabs)/(home)/_layout";
 
 interface DeleteDialogProps {
   product?: Product
@@ -30,8 +31,7 @@ export function DeleteDialog({ product }: DeleteDialogProps) {
   const { mutateAsync: handleDelete, isPending } = useMutation({
     mutationFn: () => deleteProduct({productId: product?.id}),
     onSuccess: async () => {
-      const type = ['mens-shirts', 'mens-shoes', 'mens-watches']
-      .includes(product?.category || '')? 'man-products': 'woman-products'
+      const type = manCategories.includes(product?.category || '')? 'man-products': 'woman-products'
       
       await queryClient.setQueryData([type],
         ({products, ...rest}: GetProductsResponseData) => {

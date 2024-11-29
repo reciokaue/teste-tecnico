@@ -2,12 +2,12 @@ import { ProductCard } from '@/components/product-card';
 import { UseProducts } from '@/hooks/useProducts';
 import { Link } from 'expo-router';
 import { ActivityIndicator, FlatList, View } from 'react-native';
+import { manCategories } from './_layout'
 
-const categories = ['mens-shirts', 'mens-watches', 'mens-shoes'];
 
 export default function MaleScreen() {
   const { data, refetch, isFetching } = UseProducts({
-    categories, key: 'man-products'
+    categories: manCategories, key: 'man-products'
   })
 
   return (

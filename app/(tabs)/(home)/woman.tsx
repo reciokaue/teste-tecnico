@@ -2,18 +2,11 @@ import { ProductCard } from '@/components/product-card';
 import { UseProducts } from '@/hooks/useProducts';
 import { Link } from 'expo-router';
 import { ActivityIndicator, FlatList, View } from 'react-native';
-
-const categories = [
-  'womens-bags',
-  'womens-dresses',
-  'womens-jewellery',
-  'womens-shoes',
-  'womens-watches'
-];
+import { womanCategories } from './_layout';
 
 export default function FemaleScreen() {
   const { data, refetch, isFetching } = UseProducts({
-    categories, key: 'woman-products'
+    categories: womanCategories, key: 'woman-products'
   })
 
   return (

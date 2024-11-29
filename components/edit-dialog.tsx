@@ -18,6 +18,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editProduct } from "@/api/edit-product";
 import { router } from 'expo-router';
 import { ActivityIndicator } from "react-native";
+import { manCategories } from "@/app/(tabs)/(home)/_layout";
 
 interface EditDialogProps {
   onPress: any
@@ -31,8 +32,7 @@ export function EditDialog({ onPress }: EditDialogProps) {
   const { mutateAsync: handleEdit, isPending } = useMutation({
     mutationFn: () => editProduct({ product: product || {} }),
     onSuccess: async () => {
-      const type = ['mens-shirts', 'mens-shoes', 'mens-watches']
-      .includes(product?.category || '')? 'man-products': 'woman-products'
+      const type = manCategories.includes(product?.category || '')? 'man-products': 'woman-products'
       
       await queryClient.setQueryData([type],
         ({products, ...rest}: GetProductsResponseData) => {
