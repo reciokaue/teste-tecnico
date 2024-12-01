@@ -21,9 +21,7 @@ export async function addProduct({
     discountPercentage: +product?.discountPercentage,
   }
 
-  const result = await api.post(`/products/add`, {
-    body: JSON.stringify(newProduct)
-  })
+  const result = await api.post(`/products/add`, newProduct)
   return {
     id: result.data,
     ...newProduct,

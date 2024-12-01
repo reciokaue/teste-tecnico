@@ -18,10 +18,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { useAuthStore, } from "@/hooks/useAuth";
 
 const queryClient = new QueryClient()
 
 export default function RootLayout() {
+  const { hydrate, status } = useAuthStore()
+
   const [ fontsLoaded ] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -29,12 +32,14 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontsLoaded) {
+    hydrate()
+
+    if (fontsLoaded && status !== 'idle') {
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, status]);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || status === 'idle') {
     return null;
   }
 
@@ -42,10 +47,10 @@ export default function RootLayout() {
     <GluestackUIProvider>
       <QueryClientProvider client={queryClient}>
         <StatusBar style="auto" translucent backgroundColor='#fff'/>
-        <Stack initialRouteName="index">
-          <Stack.Screen name="index" options={{ headerShown: false }}/>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
           <Stack.Screen name="product" options={{ headerShown: false }}/>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }}/>
         </Stack>
       </QueryClientProvider>
     </GluestackUIProvider>

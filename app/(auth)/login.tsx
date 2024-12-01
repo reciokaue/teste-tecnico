@@ -2,7 +2,7 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField, InputSlot } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { z } from "zod";
 import Feather from '@expo/vector-icons/Feather';
 import { useState } from "react";
@@ -10,6 +10,9 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "@/hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/api/login";
+import { router } from "expo-router";
 
 const schema = z.object({
   username: z.string(),
@@ -19,7 +22,15 @@ type LoginType = z.infer<typeof schema>
 
 export default function LoginScreen() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const { login, errorMessage } = useAuthStore()
+  const { setUser } = useAuthStore()
+
+  const { mutateAsync, isPending, error } = useMutation({
+    mutationFn: ({ username, password }: LoginType) => login({ username, password }),
+    onSuccess: (user) => {
+      setUser(user)
+      router.push('/(tabs)/(home)')
+    }
+  });
 
   const {
     control,
@@ -29,8 +40,8 @@ export default function LoginScreen() {
     resolver: zodResolver(schema),
   })
 
-  function onSubmit(data: any){
-    login(data.username, data.password)
+  function onSubmit(data: LoginType){
+    mutateAsync(data)
   }
 
   return (
@@ -47,9 +58,9 @@ export default function LoginScreen() {
       </View>
       <View className="flex bg-white px-8 h-1/2 relative">
         <View className="px-6 py-12 gap-6 bg-white rounded-lg border border-border -top-28">
-          {errorMessage && 
+          {error && 
             <Text size="md" className="text-error-700 text-center">
-              {errorMessage}
+              Username ou senha inválidos
             </Text>
           }
           <Controller
@@ -101,8 +112,15 @@ export default function LoginScreen() {
               </View>
             )}
           />
-          <Button onPress={handleSubmit(onSubmit)} variant="primary">
-            <ButtonText>Entrar</ButtonText>
+          <Button
+            onPress={handleSubmit(onSubmit)}
+            variant="primary"
+            disabled={isPending}
+          >
+            {isPending ?
+              <ActivityIndicator size={24} color='white'/>:
+              <ButtonText>Entrar</ButtonText>
+            }
           </Button>
         </View>
       </View>

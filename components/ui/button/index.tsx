@@ -128,7 +128,7 @@ const buttonStyle = tva({
       outline:
         'bg-transparent border border-gray-300 text-gray-800 data-[hover=true]:bg-gray-100 data-[active=true]:bg-gray-200',
       destructive:
-        'bg-[#E63535] text-white data-[hover=true]:bg-error-600 data-[active=true]:bg-error-700',
+        'bg-error-500 text-white data-[hover=true]:bg-error-600 data-[active=true]:bg-error-700',
       primary:
         'bg-[#2567E8] text-white data-[hover=true]:bg-blue-600 data-[active=true]:bg-blue-700',
       default: 'bg-transparent text-gray-800 data-[hover=true]:bg-gray-100',
