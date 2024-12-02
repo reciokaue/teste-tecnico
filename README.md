@@ -1,7 +1,3 @@
-Segue o README revisado, agora com os comentários de código preservados:
-
----
-
 # **README - Aplicativo React Native para Gestão de Produtos**
 
 Este projeto é uma aplicação mobile desenvolvida em **React Native** utilizando o framework **Expo**. O objetivo principal é implementar autenticação, listagem, adição, edição e exclusão de produtos, explorando boas práticas de desenvolvimento, organização de código e integração com APIs.
