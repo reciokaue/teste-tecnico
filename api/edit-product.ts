@@ -11,7 +11,5 @@ export async function editProduct({
   if(product?.id)
     return
 
-  await api.put(`/products/${product.id}`, {
-    body: JSON.stringify(product)
-  })
+  await api.put(`/products/${product.id}`, product)
 }
